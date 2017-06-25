@@ -76,6 +76,8 @@ hs_err_pid*
 
 ## File-based project format:
 *.iws
+*.ipr
+*.iml
 
 ## Plugin-specific files:
 
@@ -93,8 +95,3 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
-.gitignore
-little-tools.iml
-little-tools.ipr
-little-tools.iws
-src/
