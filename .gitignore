@@ -3,6 +3,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+target/
 
 # Icon must end with two \r
 Icon
