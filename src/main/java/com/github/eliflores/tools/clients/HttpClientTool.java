@@ -1,6 +1,6 @@
 package com.github.eliflores.tools.clients;
 
-import com.github.eliflores.tools.http.MyHttpClient;
+import com.github.eliflores.tools.http.HttpClient;
 
 public class HttpClientTool {
     private static final String BASE_URL = "http://httpbin.org/";
@@ -8,7 +8,7 @@ public class HttpClientTool {
     private static final String POST_TARGET = "post";
 
     public static void main(String[] args) {
-        MyHttpClient myHttpClient = new MyHttpClient();
+        HttpClient myHttpClient = new HttpClient();
         String getResponse = myHttpClient.sendGetRequest(BASE_URL + GET_TARGET);
         System.out.println("GET RS => " + getResponse);
 

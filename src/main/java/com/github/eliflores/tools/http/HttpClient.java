@@ -12,7 +12,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-public class MyHttpClient {
+public class HttpClient {
 
     private static final int HTTP_OK_STATUS = 200;
 
