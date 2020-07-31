@@ -4,7 +4,7 @@ public final class ExceptionUtil {
     private ExceptionUtil() {
     }
 
-    public static MyLittleToolsException createException(String message, Throwable cause) {
-        return new MyLittleToolsException(message, cause);
+    public static LittleToolsException createException(String message, Throwable cause) {
+        return new LittleToolsException(message, cause);
     }
 }
