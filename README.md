@@ -5,7 +5,7 @@
 
 # Little Tools
 
-Little tools that I find myself needing and using from time to time:
+Little tools in Java that I find myself needing and using from time to time:
 
 1. HttpClient - ✅
 1. URL - encode / decode - ✅
