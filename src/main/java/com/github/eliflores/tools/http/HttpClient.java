@@ -1,6 +1,6 @@
 package com.github.eliflores.tools.http;
 
-import com.github.eliflores.tools.exception.ExceptionUtil;
+import com.github.eliflores.tools.exception.LittleToolsException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -24,7 +24,7 @@ public class HttpClient {
         try {
             return httpClient.execute(httpGet, responseHandler);
         } catch (IOException e) {
-            throw ExceptionUtil.createException("Error while reading Http response.", e);
+            throw new LittleToolsException("Error while reading Http response.", e);
         } finally {
             close(httpClient);
         }
@@ -39,7 +39,7 @@ public class HttpClient {
             httpPost.setEntity(httpEntity);
             return httpClient.execute(httpPost, responseHandler);
         } catch (IOException e) {
-            throw ExceptionUtil.createException("Error while reading Http response.", e);
+            throw new LittleToolsException("Error while reading Http response.", e);
         } finally {
             close(httpClient);
         }
@@ -49,7 +49,7 @@ public class HttpClient {
         try {
             httpClient.close();
         } catch (IOException e) {
-            throw ExceptionUtil.createException("Error while reading Http response.", e);
+            throw new LittleToolsException("Error while reading Http response.", e);
         }
     }
 
