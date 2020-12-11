@@ -1,7 +1,7 @@
 package com.github.eliflores.tools.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.eliflores.tools.exception.ExceptionUtil;
+import com.github.eliflores.tools.exception.LittleToolsException;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public final class JsonWriter {
         try {
             return getObjectMapper().writeValueAsString(object);
         } catch (IOException e) {
-            throw ExceptionUtil.createException("Error while reading JSON", e);
+            throw new LittleToolsException("Error while reading JSON", e);
         }
     }
 

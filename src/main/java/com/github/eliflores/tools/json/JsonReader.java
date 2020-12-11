@@ -3,7 +3,7 @@ package com.github.eliflores.tools.json;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import com.github.eliflores.tools.exception.ExceptionUtil;
+import com.github.eliflores.tools.exception.LittleToolsException;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +20,7 @@ public class JsonReader {
         try {
             return getObjectMapper().readValue(json, javaType);
         } catch (IOException e) {
-            throw ExceptionUtil.createException("Error while reading JSON", e);
+            throw new LittleToolsException("Error while reading JSON", e);
         }
     }
 
@@ -30,7 +30,7 @@ public class JsonReader {
         try {
             return getObjectMapper().readValue(jsonArray, javaType);
         } catch (IOException e) {
-            throw ExceptionUtil.createException("Error while reading JSON", e);
+            throw new LittleToolsException("Error while reading JSON", e);
         }
     }
 

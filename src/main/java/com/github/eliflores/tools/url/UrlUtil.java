@@ -1,6 +1,6 @@
 package com.github.eliflores.tools.url;
 
-import com.github.eliflores.tools.exception.ExceptionUtil;
+import com.github.eliflores.tools.exception.LittleToolsException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -14,7 +14,7 @@ public final class UrlUtil {
         try {
             return URLEncoder.encode(url, enc);
         } catch (UnsupportedEncodingException e) {
-            throw ExceptionUtil.createException("Could not encode the url: " + url, e);
+            throw new LittleToolsException("Could not encode the url: " + url, e);
         }
     }
 
@@ -22,7 +22,7 @@ public final class UrlUtil {
         try {
             return URLDecoder.decode(url, enc);
         } catch (UnsupportedEncodingException e) {
-            throw ExceptionUtil.createException("Could not decode the url: " + url, e);
+            throw new LittleToolsException("Could not decode the url: " + url, e);
         }
     }
 }
