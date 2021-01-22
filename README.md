@@ -8,7 +8,6 @@
 Little tools in Java that I find myself needing and using from time to time:
 
 1. HttpClient - ✅
-1. URL - encode / decode - ✅
 1. JSON - Read / Write - ✅
 1. CSV - Read (`CsvReader`) / Write (`CsvWriter`)
 1. XML - Read (`XmlReader`) / Write (`XmlWriter`)
