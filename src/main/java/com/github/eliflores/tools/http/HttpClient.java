@@ -11,10 +11,10 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.io.UnsupportedEncodingException;
 
 public class HttpClient {
     private static final int HTTP_OK_STATUS = 200;
-
 
     public String sendGetRequest(String url) {
         HttpGet httpGet = new HttpGet(url);
@@ -27,15 +27,25 @@ public class HttpClient {
     }
 
     public String sendPostRequest(String url, String request) {
-        HttpPost httpPost = new HttpPost(url);
+        HttpPost httpPost = httpPost(url, request);
         ResponseHandler<String> responseHandler = getResponseHandler();
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-            HttpEntity httpEntity = new StringEntity(request);
-            httpPost.setEntity(httpEntity);
             return httpClient.execute(httpPost, responseHandler);
         } catch (IOException e) {
             throw new UncheckedIOException("Error while sending HTTP Request.", e);
         }
+    }
+
+    private HttpPost httpPost(String url, String request) {
+        HttpPost httpPost = new HttpPost(url);
+        HttpEntity httpEntity;
+        try {
+            httpEntity = new StringEntity(request);
+        } catch (UnsupportedEncodingException e) {
+            throw new UncheckedIOException("Error while sending HTTP Request.", e);
+        }
+        httpPost.setEntity(httpEntity);
+        return httpPost;
     }
 
     private static ResponseHandler<String> getResponseHandler() {
