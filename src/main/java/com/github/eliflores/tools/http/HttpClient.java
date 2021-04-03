@@ -13,41 +13,26 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 
 public class HttpClient {
-
     private static final int HTTP_OK_STATUS = 200;
 
 
     public String sendGetRequest(String url) {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(url);
         ResponseHandler<String> responseHandler = getResponseHandler();
-        try {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
             return httpClient.execute(httpGet, responseHandler);
         } catch (IOException e) {
             throw new LittleToolsException("Error while reading Http response.", e);
-        } finally {
-            close(httpClient);
         }
     }
 
     public String sendPostRequest(String url, String request) {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
         ResponseHandler<String> responseHandler = getResponseHandler();
-        try {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             HttpEntity httpEntity = new StringEntity(request);
             httpPost.setEntity(httpEntity);
             return httpClient.execute(httpPost, responseHandler);
-        } catch (IOException e) {
-            throw new LittleToolsException("Error while reading Http response.", e);
-        } finally {
-            close(httpClient);
-        }
-    }
-
-    private static void close(CloseableHttpClient httpClient) {
-        try {
-            httpClient.close();
         } catch (IOException e) {
             throw new LittleToolsException("Error while reading Http response.", e);
         }
