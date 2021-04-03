@@ -22,7 +22,7 @@ public class HttpClient {
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
             return httpClient.execute(httpGet, responseHandler);
         } catch (IOException e) {
-            throw new UncheckedIOException("Error while reading Http response.", e);
+            throw new UncheckedIOException("Error while sending HTTP Request.", e);
         }
     }
 
@@ -34,7 +34,7 @@ public class HttpClient {
             httpPost.setEntity(httpEntity);
             return httpClient.execute(httpPost, responseHandler);
         } catch (IOException e) {
-            throw new UncheckedIOException("Error while reading Http response.", e);
+            throw new UncheckedIOException("Error while sending HTTP Request.", e);
         }
     }
 
