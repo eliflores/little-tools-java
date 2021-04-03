@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 public class HttpClient {
     private static final int HTTP_OK_STATUS = 200;
+    public static final String IO_EXCEPTION_MESSAGE = "Error while sending HTTP Request.";
 
     public String sendGetRequest(String url) {
         HttpGet httpGet = new HttpGet(url);
@@ -22,7 +23,7 @@ public class HttpClient {
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
             return httpClient.execute(httpGet, responseHandler);
         } catch (IOException e) {
-            throw new UncheckedIOException("Error while sending HTTP Request.", e);
+            throw new UncheckedIOException(IO_EXCEPTION_MESSAGE, e);
         }
     }
 
@@ -32,7 +33,7 @@ public class HttpClient {
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             return httpClient.execute(httpPost, responseHandler);
         } catch (IOException e) {
-            throw new UncheckedIOException("Error while sending HTTP Request.", e);
+            throw new UncheckedIOException(IO_EXCEPTION_MESSAGE, e);
         }
     }
 
@@ -42,7 +43,7 @@ public class HttpClient {
         try {
             httpEntity = new StringEntity(request);
         } catch (UnsupportedEncodingException e) {
-            throw new UncheckedIOException("Error while sending HTTP Request.", e);
+            throw new UncheckedIOException(IO_EXCEPTION_MESSAGE, e);
         }
         httpPost.setEntity(httpEntity);
         return httpPost;
