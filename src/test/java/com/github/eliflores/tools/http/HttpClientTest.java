@@ -35,4 +35,20 @@ class HttpClientTest {
 
         assertThat(response, is("The response content."));
     }
+
+    @Test
+    void sendPostRequest() {
+        wireMockServer.stubFor(
+                post(urlPathEqualTo("/a/resource"))
+                        .withRequestBody(equalTo("The request body."))
+                        .willReturn(aResponse()
+                                .withStatus(200)
+                                .withBody("The response content.")));
+
+        HttpClient httpClient = new HttpClient();
+        String url = "http://localhost:" + wireMockServer.port() + "/a/resource";
+        String response = httpClient.sendPostRequest(url, "The request body.");
+
+        assertThat(response, is("The response content."));
+    }
 }

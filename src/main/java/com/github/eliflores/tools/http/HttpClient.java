@@ -27,8 +27,8 @@ public class HttpClient {
         }
     }
 
-    public String sendPostRequest(String url, String request) {
-        HttpPost httpPost = httpPost(url, request);
+    public String sendPostRequest(String url, String body) {
+        HttpPost httpPost = httpPost(url, body);
         ResponseHandler<String> responseHandler = getResponseHandler();
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             return httpClient.execute(httpPost, responseHandler);
@@ -37,11 +37,11 @@ public class HttpClient {
         }
     }
 
-    private HttpPost httpPost(String url, String request) {
+    private HttpPost httpPost(String url, String body) {
         HttpPost httpPost = new HttpPost(url);
         HttpEntity httpEntity;
         try {
-            httpEntity = new StringEntity(request);
+            httpEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
             throw new UncheckedIOException(IO_EXCEPTION_MESSAGE, e);
         }
