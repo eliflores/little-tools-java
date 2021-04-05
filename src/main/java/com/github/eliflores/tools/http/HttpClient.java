@@ -1,6 +1,5 @@
 package com.github.eliflores.tools.http;
 
-import com.github.eliflores.tools.exception.LittleToolsException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -11,46 +10,43 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.io.UnsupportedEncodingException;
 
 public class HttpClient {
-
     private static final int HTTP_OK_STATUS = 200;
-
+    public static final String IO_EXCEPTION_MESSAGE = "Error while sending HTTP Request.";
 
     public String sendGetRequest(String url) {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(url);
         ResponseHandler<String> responseHandler = getResponseHandler();
-        try {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
             return httpClient.execute(httpGet, responseHandler);
         } catch (IOException e) {
-            throw new LittleToolsException("Error while reading Http response.", e);
-        } finally {
-            close(httpClient);
+            throw new UncheckedIOException(IO_EXCEPTION_MESSAGE, e);
         }
     }
 
-    public String sendPostRequest(String url, String request) {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(url);
+    public String sendPostRequest(String url, String body) {
+        HttpPost httpPost = httpPost(url, body);
         ResponseHandler<String> responseHandler = getResponseHandler();
-        try {
-            HttpEntity httpEntity = new StringEntity(request);
-            httpPost.setEntity(httpEntity);
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             return httpClient.execute(httpPost, responseHandler);
         } catch (IOException e) {
-            throw new LittleToolsException("Error while reading Http response.", e);
-        } finally {
-            close(httpClient);
+            throw new UncheckedIOException(IO_EXCEPTION_MESSAGE, e);
         }
     }
 
-    private static void close(CloseableHttpClient httpClient) {
+    private HttpPost httpPost(String url, String body) {
+        HttpPost httpPost = new HttpPost(url);
+        HttpEntity httpEntity;
         try {
-            httpClient.close();
-        } catch (IOException e) {
-            throw new LittleToolsException("Error while reading Http response.", e);
+            httpEntity = new StringEntity(body);
+        } catch (UnsupportedEncodingException e) {
+            throw new UncheckedIOException(IO_EXCEPTION_MESSAGE, e);
         }
+        httpPost.setEntity(httpEntity);
+        return httpPost;
     }
 
     private static ResponseHandler<String> getResponseHandler() {
