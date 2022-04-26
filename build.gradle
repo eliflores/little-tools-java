@@ -22,12 +22,7 @@ dependencies {
     testImplementation 'com.github.tomakehurst:wiremock:2.27.2'
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.VERSION_14
-        sourceCompatibility = JavaVersion.VERSION_14
-    }
-}
+java.sourceCompatibility = JavaVersion.VERSION_14
 
 publishing {
     publications {
