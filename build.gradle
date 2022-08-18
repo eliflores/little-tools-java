@@ -22,14 +22,14 @@ dependencies {
     testImplementation 'com.github.tomakehurst:wiremock:2.27.2'
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_14
+java.sourceCompatibility = JavaLanguageVersion.of(17)
 
 publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'com.github.eliflores.tools'
             artifactId = 'eliflores-little-tools'
-            version = "0.0.1-rc-1"
+            version = "0.0.1-rc-2"
             from components.java
 
             pom {
