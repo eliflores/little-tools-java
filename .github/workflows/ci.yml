@@ -31,4 +31,5 @@ jobs:
       with:
         coverageCommand: ./gradlew test
         coverageLocations: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-      
+        debug: true
+    
