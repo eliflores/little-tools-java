@@ -27,5 +27,5 @@ jobs:
       uses: qltysh/qlty-action/coverage@v2
       with:
         token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-        coverage-path: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+        files: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
         coverage-format: jacoco
