@@ -23,9 +23,13 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Run Tests
+      run: |
+        ./gradlew test
+
     - name: Upload Jacoco coverage to Qlty
       uses: qltysh/qlty-action/coverage@v2
       with:
         token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-        files: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-        coverage-format: jacoco
+        files: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
+        format: jacoco
