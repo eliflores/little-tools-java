@@ -33,3 +33,4 @@ jobs:
         token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
         files: build/reports/jacoco/test/jacocoTestReport.xml
         format: jacoco
+        add-prefix: src/main/java/
