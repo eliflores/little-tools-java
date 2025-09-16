@@ -22,12 +22,10 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    
-    - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v9.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        JACOCO_SOURCE_PATH: "${{ github.workspace }}/src/main/java"
+
+    - name: Upload Jacoco coverage to Qlty
+      uses: qltysh/qlty-action/coverage@v2
       with:
-        coverageCommand: ./gradlew test
-        coverageLocations: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+        token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        coverage-path: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+        coverage-format: jacoco
